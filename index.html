@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub User Info</title>
+  </head>
+  <body>
+    <link rel="Stylesheet" href="abishai.css" />
+    <div>
+      <label for="text">GitHub Username:</label>
+      <input type="text" id="text" />
+      <button onclick="git()">Get User Info</button>
+    </div>
+    <div id="result">
+      <!-- User info will be displayed here -->
+    </div>
+    <script>
+      function git() {
+        var originalName = document.getElementById("text").value;
+        console.log(originalName);
+
+        // Fetch user info
+        fetch("https://api.github.com/users/" + originalName)
+          .then((result) => result.json())
+          .then((data) => {
+            console.log(data);
+            document.getElementById(
+              "result"
+            ).innerHTML = `<img src="${data.avatar_url}" alt="user_avatar">`;
+
+            // Fetch user repositories
+            fetch(data.repos_url)
+              .then((result) => result.json())
+              .then((repos) => {
+                console.log(repos);
+                var repoList = "<ul>";
+                repos.forEach((repo) => {
+                  repoList += `<br><li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`;
+                });
+                repoList += "</ul>";
+                document.getElementById("result").innerHTML += repoList;
+              });
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+            document.getElementById("result").innerHTML =
+              "Error fetching user data.";
+          });
+      }
+    </script>
+  </body>
+</html>

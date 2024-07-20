@@ -1,0 +1,19 @@
+button {
+  color: chartreuse;
+  background-color: white;
+  border-color: aqua;
+}
+body {
+  background-color: greenyellow; /* Change to your desired background color */
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#result {
+  margin-top: 50px;
+  max-width: 2000px;
+  padding: 0px;
+  background-color: yellow; /* Background for result section */
+  border-radius: 0px;
+  display: inline-table;
+}
